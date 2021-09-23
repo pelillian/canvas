@@ -22,52 +22,29 @@ addEventListener('mousemove', (event) => {
 addEventListener('resize', () => {
   canvas.width = innerWidth
   canvas.height = innerHeight
-
-  init()
 })
 
-// Objects
-class Object {
-  constructor(x, y, radius, color) {
-    this.x = x
-    this.y = y
-    this.radius = radius
-    this.color = color
-  }
+c.imageSmoothingEnabled = false;
 
-  draw() {
-    c.beginPath()
-    c.arc(this.x, this.y, this.radius, 0, Math.PI * 2, false)
-    c.fillStyle = this.color
-    c.fill()
-    c.closePath()
-  }
-
-  update() {
-    this.draw()
-  }
+var pixels = new Uint8ClampedArray(4*1024*1024);
+for (let i=0; i<4*1024*1024; i+=4) {
+    pixels[i] = i % 256;
+    pixels[i+1] = 0;
+    pixels[i+2] = (~~(i % 1024)) / 4; ///
+    pixels[i+3] = 255;
 }
-
-// Implementation
-let objects
-function init() {
-  objects = []
-
-  for (let i = 0; i < 400; i++) {
-    // objects.push()
-  }
-}
+var pixelData = new ImageData(pixels, 1024, 1024);
 
 // Animation Loop
 function animate() {
   requestAnimationFrame(animate)
   c.clearRect(0, 0, canvas.width, canvas.height)
 
-  c.fillText('HTML CANVAS BOILERPLATE', mouse.x, mouse.y)
+  c.putImageData(pixelData, 100, 100);
+//  c.fillText('HTML CANVAS BOILERPLATE', mouse.x, mouse.y)
   // objects.forEach(object => {
   //  object.update()
   // })
 }
 
-init()
 animate()
