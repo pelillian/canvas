@@ -1,3 +1,3 @@
 ## canvas
 
-Touchpad pinch/zoom in canvas
+Touchpad pinch/zoom in js canvas
