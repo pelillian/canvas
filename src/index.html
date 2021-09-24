@@ -2,14 +2,21 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <title>Canvas Boilerplate | Chris Courses</title>
+    <title>Canvas</title>
     <style>
       body {
         margin: 0;
+        touch-action: none;
+      }
+      .canvas {
+      	position: absolute;
+        transform-origin: 0 0;
       }
     </style>
   </head>
   <body>
-    <canvas></canvas>
+    <div class="canvas">
+      <canvas></canvas>
+    </div>
   </body>
 </html>
