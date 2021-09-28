@@ -15,15 +15,8 @@ var startY
 canvas.width = SIZE
 canvas.height = SIZE
 
-const mouse = {
-  x: innerWidth / 2,
-  y: innerHeight / 2
-}
-
-addEventListener('mousemove', (event) => {
-  mouse.x = event.clientX
-  mouse.y = event.clientY
-})
+//addEventListener('mousemove', (event) => {
+//})
 
 //addEventListener('resize', () => {
 //    scale = 1
@@ -34,10 +27,15 @@ window.addEventListener('wheel', (e) => {
 
   if (e.ctrlKey) {
     const delta = - e.deltaY / 5
-    const nextScale = scale + delta * 0.02
+    var nextScale = scale + delta * 0.05 * scale
+    if (nextScale > 5) {
+        nextScale = 5
+    }
+    else if (nextScale < 0.2) {
+        nextScale = 0.2
+    }
     const ratio = 1 - nextScale / scale
-    console.log(posX, e.clientX)
-    console.log(posY, e.clientY)
+    console.log(scale, delta, nextScale, ratio)
     posX += (e.clientX - posX) * ratio
     posY += (e.clientY - posY) * ratio
     scale = nextScale
