@@ -4,6 +4,7 @@ const canvas = document.querySelector('canvas')
 const c = canvas.getContext('2d')
 
 const SIZE = 1024
+const SCALE_SPEED = 0.05
 
 var gestureStartScale = 0
 var scale = 1
@@ -27,9 +28,9 @@ window.addEventListener('wheel', (e) => {
 
   if (e.ctrlKey) {
     const delta = - e.deltaY / 5
-    var nextScale = scale + delta * 0.05 * scale
-    if (nextScale > 5) {
-        nextScale = 5
+    var nextScale = scale * (1 + delta * 0.05)
+    if (nextScale > 100) {
+        nextScale = 100
     }
     else if (nextScale < 0.2) {
         nextScale = 0.2
@@ -69,7 +70,6 @@ window.addEventListener("gestureend", function (e) {
   e.preventDefault()
 })
 
-c.imageSmoothingEnabled = false
 
 var pixels = new Uint8ClampedArray(4*SIZE*SIZE)
 for (let i=0; i<4*SIZE*SIZE; i+=4) {
@@ -88,6 +88,7 @@ var pixelData = new ImageData(pixels, SIZE, SIZE)
 var node = document.querySelector('.canvas')
 
 function animate() {
+  c.imageSmoothingEnabled = false
   requestAnimationFrame(animate)
   c.clearRect(0, 0, canvas.width, canvas.height)
 
